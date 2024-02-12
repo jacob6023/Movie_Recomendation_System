@@ -1,4 +1,5 @@
 # Movie_Recomendation_System
+By: Jacob Jeong
 Task 1: Reading Data
 
 [10 pts] Write a function read_ratings_data(f) that takes in a ratings file name, and returns a dictionary. (Note: the parameter is a file name string such as "myratings.txt", NOT a file pointer.) The dictionary should have movie as key, and the list of all ratings for it as value.
