@@ -16,17 +16,30 @@ def read_ratings_data(f):
     # parameter f: movie ratings file name f (e.g. "movieRatingSample.txt")
     # return: dictionary that maps movie to ratings
     # WRITE YOUR CODE BELOW
-    f = open("movieRatingSample.txt", "r")
-    print(f.read())
-    pass
-    
+    #
+    movie_dictionary = {}  # Create an empty dictionary to store movie ratings
+
+    with open("movieRatingSample.txt", 'r') as content:
+        for line in content:
+            movie, rating, _ = line.strip().split('|')  
+            if movie in movie_dictionary:
+                movie_dictionary[movie].append(rating)  # Append the rating to the existing list
+            else:
+                movie_dictionary[movie] = [rating]  
+    return movie_dictionary
+        
 
 # 1.2
 def read_movie_genre(f):
     # parameter f: movies genre file name f (e.g. "genreMovieSample.txt")
     # return: dictionary that maps movie to genre
     # WRITE YOUR CODE BELOW
-    pass
+    genre_dictionary = {}
+    with open("movieGenreSample.txt", 'r') as content:
+        for line in content:
+            genre, _, movie = line.strip().split('|')  # Split each line and ignore the ID
+            genre_dictionary[movie] = genre  # Map movie to genre in the dictionary
+    return genre_dictionary
 
 # ------ TASK 2: PROCESSING DATA --------
 
@@ -35,7 +48,17 @@ def create_genre_dict(d):
     # parameter d: dictionary that maps movie to genre
     # return: dictionary that maps genre to movies
     # WRITE YOUR CODE BELOW
-    pass
+        movies_to_genre = {}  
+
+        for movie, genre in d.items():
+            if genre not in movies_to_genre:
+                movies_to_genre[genre] = [movie]
+            else:
+                movies_to_genre[genre].append(movie)
+
+        return movies_to_genre
+
+    
     
 # 2.2
 def calculate_average_rating(d):
@@ -123,7 +146,15 @@ def recommend_movies(user_id, user_to_movies, movie_to_genre, movie_to_average_r
 def main():
     # write all your test code here
     # this function will be ignored by us when grading
-    pass
+    movie_dict = read_ratings_data("movieGenreSample.txt")
+    print(movie_dict)
+    
+    genre_dict = read_movie_genre("movieGenreSample.txt")
+    print(genre_dict) 
+    
+    genre_to_movies_dict = create_genre_dict(movies_to_genre)
+    print(genre_to_movies_dict)
+
     
 # DO NOT write ANY CODE (including variable names) outside of any of the above functions
 # In other words, ALL code your write (including variable names) MUST be inside one of
